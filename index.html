@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="description" content="Check password strength with regex based guidance and a privacy-minded live breach lookup.">
+  <title>Password Strength Checker</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Password Strength Checker home">
+        <span class="brand-mark" aria-hidden="true">S</span>
+        <span>Secure<span class="brand-light">Check</span></span>
+      </a>
+      <span class="topbar-note"><span class="live-dot"></span> Browser-based check</span>
+    </header>
+    <section class="hero" aria-labelledby="page-title">
+      <p class="eyebrow">PASSWORD HEALTH</p>
+      <h1 id="page-title">A stronger password<br><span>starts with a check.</span></h1>
+      <p class="intro">Review password patterns and check whether it appears in known breach data, before you use it.</p>
+    </section>
+    <section class="checker-card" aria-label="Password checker">
+      <form id="checker-form" novalidate>
+        <label for="password">Enter a password to check</label>
+        <div class="input-row">
+          <input id="password" name="password" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type or paste a password" aria-describedby="privacy-hint">
+          <button class="icon-button" id="toggle-password" type="button" aria-label="Show password" title="Show password">
+            <svg class="eye-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          </button>
+          <button class="text-button" id="clear-password" type="button">Clear</button>
+        </div>
+        <p class="privacy-hint" id="privacy-hint"><span class="lock-icon" aria-hidden="true">●</span> Your full password stays in this browser. It is never saved or sent.</p>
+        <button class="check-button" id="check-button" type="submit">
+          <span>Check password</span>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5"></path></svg>
+        </button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+      <section class="results" id="results" aria-labelledby="results-heading" hidden>
+        <div class="results-heading">
+          <div><p class="eyebrow">YOUR CHECK</p><h2 id="results-heading">Password review</h2></div>
+          <span class="grade-chip" id="grade-chip">—</span>
+        </div>
+        <div class="strength-block">
+          <div class="strength-labels"><span>Strength estimate</span><span id="score-label">0 / 8</span></div>
+          <div class="meter" role="progressbar" id="strength-meter" aria-label="Password strength estimate" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0"><span class="meter-fill" id="meter-fill"></span></div>
+          <p class="small-note">A local estimate based on length, character variety, and predictable patterns.</p>
+        </div>
+        <div class="breach-box" id="breach-box" aria-live="polite">
+          <span class="breach-icon" id="breach-icon" aria-hidden="true">↻</span>
+          <div><h3 id="breach-title">Checking breach data…</h3><p id="breach-detail">A privacy-preserving hash range lookup is in progress.</p></div>
+        </div>
+        <div class="review-columns">
+          <div class="review-panel"><h3>Strength signals</h3><ul class="finding-list" id="finding-list"></ul></div>
+          <div class="review-panel"><h3>Ways to improve</h3><ul class="tips-list" id="tips-list"></ul></div>
+        </div>
+        <p class="data-note">A “not found” result means the password was not present in the data currently indexed by Have I Been Pwned. It cannot prove a password has never been exposed.</p>
+      </section>
+    </section>
+    <section class="privacy-card" aria-label="Privacy details">
+      <div class="privacy-emblem" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.2c0 4.6 3.1 8.1 7.5 9.8 4.4-1.7 7.5-5.2 7.5-9.8V6L12 3Z"></path><path d="m9 12 2 2 4-4"></path></svg></div>
+      <div><h2>Designed to keep the password private</h2><p>The password is hashed locally. Only the first five characters of its SHA-1 hash are sent to the Have I Been Pwned range API; the browser compares the returned suffixes. This is a k-anonymity lookup, not a guarantee of zero information leakage.</p></div>
+    </section>
+    <footer class="footer"><span>Made for safer password habits.</span><a href="https://haveibeenpwned.com/API/V3#PwnedPasswords" target="_blank" rel="noreferrer">About the breach check <span aria-hidden="true">↗</span></a></footer>
+  </main>
+</body>
+</html>
+
